@@ -10,8 +10,8 @@ import com.example.task_manager.databinding.ItemBoardBinding
 
 class BoardAdapter(private val click: Result) : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
     private val imgList = listOf(R.raw.note_first, R.raw.note_anim, R.raw.note_anim2)
-    private val titleList = listOf("title 1", "title 2" , "title 3")
-    private val descList = listOf("desc 1", "desc 2" , "desc 3")
+    private val titleList = listOf("Привет!", "Лист 2" , " лист 3")
+    private val descList = listOf("Мой новый проект", "картина с отметкой" , "картинка с человеком) ")
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BoardViewHolder (
