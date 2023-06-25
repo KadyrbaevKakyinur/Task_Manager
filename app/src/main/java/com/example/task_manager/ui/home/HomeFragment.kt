@@ -1,25 +1,24 @@
 package com.example.task_manager.ui.home
 
-import android.content.ContentValues.TAG
+
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import com.example.task_manager.App
 import com.example.task_manager.R
 import com.example.task_manager.databinding.FragmentHomeBinding
 import com.example.task_manager.model.Task
 import com.example.task_manager.ui.home.adapter.TaskAdapter
-import com.example.task_manager.ui.task.TaskFragment
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    private val adapter = TaskAdapter()
+    private val adapter = TaskAdapter(this::onLongClickForTask)
 
     private val binding get() = _binding!!
 
@@ -36,17 +35,47 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setFragmentResultListener(TaskFragment.TASK_REQUEST){ requestKey,bundle ->
-            val data = bundle.getSerializable(TaskFragment.TASK_KEY) as Task
-           adapter.setTask(data)
-        }
+        val list = App.db.taskDao().getAll()
+        adapter.setTasks(list)
         binding.fab.setOnClickListener{
             findNavController().navigate(R.id.taskFragment)
         }
+        putData()
+        attachToTaskFragment()
         binding.recuclerView.adapter= adapter
     }
 
+    private fun putData() {
+        val list = App.db.taskDao().getAll()
+        adapter.setTasks(list)
+    }
 
+    private fun attachToTaskFragment() {
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.taskFragment)
+        }
+    }
+
+
+    private fun onLongClickForTask(task: Task) {
+        val alertDialogDeleteTask = AlertDialog.Builder(requireContext())
+
+        val dialogView = layoutInflater.inflate(R.layout.alert_dialog_from_task, null)
+        alertDialogDeleteTask.setView(dialogView)
+
+
+        alertDialogDeleteTask.setPositiveButton("Confirm") { _, _ ->
+            App.db.taskDao().delete(task)
+            putData()
+        }
+
+        alertDialogDeleteTask.setNegativeButton("Cancel") { dialog, _ ->
+            dialog?.cancel()
+        }
+
+        alertDialogDeleteTask.create().show()
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

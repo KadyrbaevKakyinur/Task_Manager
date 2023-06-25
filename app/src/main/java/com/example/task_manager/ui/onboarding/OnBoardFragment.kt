@@ -1,13 +1,8 @@
 package com.example.task_manager.ui.onboarding
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.task_manager.R
+import com.example.task_manager.data.local.Pref
 import com.example.task_manager.databinding.FragmentOnBoardBinding
 import com.example.task_manager.ui.fragment.BaseFragment
 import com.example.task_manager.ui.onboarding.adapter.BoardAdapter
@@ -20,6 +15,9 @@ class OnBoardFragment : BaseFragment<FragmentOnBoardBinding>(FragmentOnBoardBind
 
     private val adapter: BoardAdapter by lazy {
         BoardAdapter(this)
+    }
+    private val pref : Pref by lazy {
+        Pref(requireContext())
     }
 
     override fun setupUI() {
@@ -37,6 +35,7 @@ class OnBoardFragment : BaseFragment<FragmentOnBoardBinding>(FragmentOnBoardBind
     }
 
     override fun onClick() {
+        pref.saveSeen()
         findNavController().navigateUp()
     }
 
