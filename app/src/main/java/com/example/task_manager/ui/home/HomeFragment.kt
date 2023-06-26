@@ -17,9 +17,7 @@ import com.example.task_manager.ui.home.adapter.TaskAdapter
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    private val adapter = TaskAdapter(this::onLongClickForTask)
-
+    private val adapter = TaskAdapter(this::onLongClickForTask,this::onClickTask)
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -56,6 +54,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+
+    private fun onClickTask(bundle: Bundle){
+        findNavController().navigate(R.id.taskFragment,bundle)
+    }
 
     private fun onLongClickForTask(task: Task) {
         val alertDialogDeleteTask = AlertDialog.Builder(requireContext())
