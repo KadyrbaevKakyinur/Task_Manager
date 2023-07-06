@@ -5,6 +5,9 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <include  android:id="@+id/navigation_auth"
+        app:graph="@navigation/auth_navigation"/>
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.task_manager.ui.home.HomeFragment"
@@ -22,19 +25,39 @@
         android:name="com.example.task_manager.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/taskFragment"
         android:name="com.example.task_manager.ui.task.TaskFragment"
         android:label="Task"
         tools:layout="@layout/fragment_task" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.task_manager.ui.fragment.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/onBoardFragment"
         android:name="com.example.task_manager.ui.onboarding.OnBoardFragment"
         android:label="fragment_on_board"
         tools:layout="@layout/fragment_on_board" />
+
+    <fragment
+        android:id="@+id/phoneFragment"
+        android:name="com.example.task_manager.ui.auth.phone.PhoneFragment"
+        android:label="fragment_phone"
+        tools:layout="@layout/fragment_phone" />
+
+    <fragment
+        android:id="@+id/acceptFragment"
+        tools:layout="@layout/fragment_accept"
+        android:name="com.example.task_manager.ui.auth.accept.AcceptFragment"
+        android:label="AcceptFragment" />
+
+    <action android:id="@+id/action_to_auth"
+        app:destination="@+id/auth_navigation"
+        app:popUpTo="@id/mobile_navigation"
+        app:popUpToInclusive="true"/>
 </navigation>

@@ -6,7 +6,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile">profile</string>
     <string name="save_name">save_name</string>
-    <string name="alert_dialog_to_delete">You confirm that you want \n to delete this task?</string>
+    <string name="alert_dialog_to_delete">Вы хотите удалить эту задачу или сохранить ее?</string>
 
     <string name="update">Update</string>
+    <string name="enter_phone_number">введите номер телефона</string>
+    <string name="send_code">Отправить код</string>
+    <string name="confirm">подтвердить</string>
+    <string name="enter_code_from_sms">введите код с смс</string>
 </resources>
